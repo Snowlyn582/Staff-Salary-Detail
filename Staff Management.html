@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Salary Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('./work.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            background-color: #00796b;
+            color: antiquewhite;
+            text-align: center;
+            padding: 1rem 0;
+
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #00796b;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-group button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #005b4f;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1> Staff Details</h1>
+    </div>
+    <div class="container">
+        <h2>Staff Salary Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Staff Name</th>
+                    <th>Position</th>
+                    <th>Monthly Salary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="staffList">
+                <!-- Dynamic Rows will be added here -->
+            </tbody>
+        </table>
+
+        <h3>Add New Staff</h3>
+        <div class="form-group">
+            <label for="staffName">Staff Name</label>
+            <input type="text" id="staffName" placeholder="Enter staff name">
+        </div>
+        <div class="form-group">
+            <label for="position">Position</label>
+            <input type="text" id="position" placeholder="Enter position">
+        </div>
+        <div class="form-group">
+            <label for="monthlySalary">Monthly Salary</label>
+            <input type="number" id="monthlySalary" placeholder="Enter monthly salary">
+        </div>
+        <div class="form-group">
+            <button onclick="addStaff()">Add Staff</button>
+        </div>
+    </div>
+
+    <script>
+        let staffCount = 0;
+
+        function addStaff() {
+            const staffName = document.getElementById('staffName').value;
+            const position = document.getElementById('position').value;
+            const monthlySalary = document.getElementById('monthlySalary').value;
+
+            if (staffName === "" || position === "" || monthlySalary === "") {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            staffCount++;
+            const staffList = document.getElementById('staffList');
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td>${staffCount}</td>
+                <td>${staffName}</td>
+                <td>${position}</td>
+                <td>${monthlySalary}</td>
+                <td><button onclick="deleteStaff(this)">Delete</button></td>
+            `;
+
+            staffList.appendChild(row);
+
+            // Clear form inputs
+            document.getElementById('staffName').value = "";
+            document.getElementById('position').value = "";
+            document.getElementById('monthlySalary').value = "";
+        }
+
+        function deleteStaff(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+    </script>
+</body>
+</html>
